@@ -1,6 +1,4 @@
-#include "Ball.h"
 #include <SDL.h>
-#include <math.h>
 
 class Ball
 {

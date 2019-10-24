@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SDL.h>
 #include "Ball.cpp"
+#include "Paddle.cpp"
 
 int main(int, char**) {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
@@ -14,8 +15,6 @@ int main(int, char**) {
 		SDL_Quit();
 		return 1;
 	}
-
-	
 
 	SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	if (ren == nullptr) {
@@ -32,6 +31,8 @@ int main(int, char**) {
 	rect.h = 32;
 
 	Ball *b = new Ball(*ren, *win);
+	Paddle *p = new Paddle(*ren, *win);
+	SDL_Event e;
 
 	//A sleepy rendering loop, wait for 3 seconds and render and present the screen each time
 	while (true) {
@@ -42,6 +43,14 @@ int main(int, char**) {
 		b->render();
 		b->move();
 
+		while (SDL_PollEvent(&e) != 0)
+		{
+			p->handleEvent(e);
+		}
+
+		p->move();
+		p->render();
+		
 		SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
 		//Update the screen
 		SDL_RenderPresent(ren);
