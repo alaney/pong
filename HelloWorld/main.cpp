@@ -31,10 +31,10 @@ int main(int, char**) {
 	rect.w = 32;
 	rect.h = 32;
 
-	Ball *b = new Ball(*ren);
+	Ball *b = new Ball(*ren, *win);
 
 	//A sleepy rendering loop, wait for 3 seconds and render and present the screen each time
-	for (int i = 0; i < 50; ++i) {
+	while (true) {
 		//First clear the renderer
 		SDL_RenderClear(ren);
 		
