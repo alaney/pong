@@ -16,6 +16,11 @@ public:
 		rect->y = 0;
 	}
 	
+	SDL_Rect* getPosition()
+	{
+		return rect;
+	}
+
 	void render()
 	{
 		SDL_RenderFillRect(renderer, rect);
@@ -54,26 +59,15 @@ public:
 			}
 		}
 
-
-		//If a key was released
-		//else if (e.type == SDL_KEYUP && e.key.repeat == 0)
-		//{
-		//	//Adjust the velocity
-		//	switch (e.key.keysym.sym)
-		//	{
-		//		case SDLK_UP: rect->y += vel; break;
-		//		case SDLK_DOWN: rect->y -= vel; break;
-		//	}
-		//}
 	}
 
 private:
 	int width = 10;
-	int height = 50;
+	int height = 100;
 	SDL_Renderer *renderer;
 	SDL_Rect *rect;
 	int windowWidth = 0;
 	int windowHeight = 0;
-	int vel = 10;
+	int vel = 25;
 	int velY = 0;
 };

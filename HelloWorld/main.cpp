@@ -24,12 +24,6 @@ int main(int, char**) {
 		return 1;
 	}
 
-	SDL_Rect rect;
-	rect.x = 0;
-	rect.y = 0;
-	rect.w = 32;
-	rect.h = 32;
-
 	Ball *b = new Ball(*ren, *win);
 	Paddle *p = new Paddle(*ren, *win);
 	SDL_Event e;
@@ -50,7 +44,25 @@ int main(int, char**) {
 
 		p->move();
 		p->render();
-		
+
+		// check for collision
+		SDL_Rect *ballPosition = b->getPosition();
+		SDL_Rect *paddlePosition = p->getPosition();
+
+		// the ball has either hit the paddle or passed the paddle
+		if (ballPosition->x + ballPosition->w >= 640 - paddlePosition->w)
+		{
+			// did it hit the paddle?
+			if (ballPosition->y + ballPosition->h >= paddlePosition->y && ballPosition->y <= paddlePosition->y + paddlePosition->h)
+			{
+				b->bounce();
+			}
+			else 
+			{
+				b->restart();
+			}
+		}
+
 		SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);
 		//Update the screen
 		SDL_RenderPresent(ren);
